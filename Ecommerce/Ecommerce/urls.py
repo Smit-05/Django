@@ -19,5 +19,7 @@ from django.urls.conf import include
 
 urlpatterns = [
     path('',include('home.urls')),
+    path('register',include('register.urls')),
+    path('validate',include('login.urls')),
     path('admin/', admin.site.urls),
 ]
