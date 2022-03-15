@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block content%}
+
+<div class="container mt-4">
+    {%for message in messages%}
+        {{message}}
+    {%endfor%}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form action="register" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="uname">Username</label>
+                    <input type="text" name="username" class="form-control" id="uname" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="pass">Password</label>
+                    <input name="password1" type="password" class="form-control" id="pass">
+                </div>
+                <div class="form-group">
+                    <label for="cpass">Confirm Password</label>
+                    <input name="password2" type="password" class="form-control" id="cpass">
+                </div>
+                <div class="form-group">
+                    <label for="mail">Email Address</label>
+                    <input name="email" type="email" class="form-control" id="mail">
+                </div>
+                <div class="form-group">
+                    <label for="ph">Phone number</label>
+                    <input name="phone" type="text" class="form-control" id="ph">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
