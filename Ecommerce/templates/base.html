@@ -43,6 +43,8 @@
                     </div>
                 </li>
             </ul>
+            {% if request.session.userid == None %}
+                
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
@@ -52,6 +54,17 @@
                     <a class="nav-link custom-txt" href="{% if request.path == '/' %}authentication/{% endif %}register">Sign up</a>
                 </li>
             </ul>
+            {% else %}
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item ">
+                    <a class="nav-link custom-txt" href="">{{request.session.username}}</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link custom-txt" href="">Logout</a>
+                </li>
+            </ul>
+            {% endif%}
         </div>
     </nav>
     {% block content %}
