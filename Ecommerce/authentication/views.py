@@ -40,7 +40,7 @@ def register(request):
             user = Users(username=username,password=password,email=email,phone=phone)
             user.save()
             messages.success(request,"User created successfully")
-            sendMail(email,"You have been registerd","Jingalala")
+            sendMail(email,'You have been registerd',"Jingalala")
             return redirect('login')
     return render(request,'signup.html')
 
@@ -50,7 +50,12 @@ def login(request):
         password = request.POST['password']
         if Users.objects.filter(email=email,password=password).exists():
             messages.info(request,"Email is already registered")
-            sendMail(email,"You have been logged in","Jingalala")
+            sendMail(email,'You have been logged in',"Jingalala")
+            
+            cuser = Users.objects.get(id)
+            request.session['cuname'] = cuser.username
+            
+            print(cuser.username+" "+cuser.email)
             return redirect('/')
         else:
             messages.error(request,"Invalid Credentials")
