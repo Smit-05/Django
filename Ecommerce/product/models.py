@@ -11,5 +11,5 @@ class Products(models.Model):
     pDesc = models.TextField(max_length=1000)
     pPrice = models.IntegerField()
     pShipment = models.TextField(max_length=1000)
-    cId = models.ForeignKey(Category,on_delete=models.CASCADE,default=1)
+    cId = models.ForeignKey(Category,null=True,on_delete=models.CASCADE)
     

@@ -12,7 +12,7 @@ def addProduct(request):
         pDesc = request.POST['pDesc']
         pPrice = int(request.POST['pPrice'])
         pShipment = request.POST['pShipment']
-        product = Products(cId=int(cat.id),pImage=pImage,pName=pName,pDesc=pDesc,pPrice=pPrice,pShipment=pShipment)
+        product = Products(cId=cat,pImage=pImage,pName=pName,pDesc=pDesc,pPrice=pPrice,pShipment=pShipment)
         product.save()
     return render(request,'addProduct.html',{'categories':categories})
 
