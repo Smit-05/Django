@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}
+Add Product
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {%for message in messages%}
+    {{message}}
+    {%endfor%}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form action="addProduct" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" name="pName" class="form-control" id="productName"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Product Description</label>
+                    <textarea name="pDesc" type="text" class="form-control" id="productDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Product Price</label>
+                    <input type="number" name="pPrice" class="form-control" id="productPrice"
+                    aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="productShipment">Product Shipment</label>
+                    <textarea name="pShipment" type="text" class="form-control" id="productShipment"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="categories">Select Category</label>
+                    <select name="pCategory" class="form-control" id="categories">
+                      {% for category in categories %}
+                        <option value={{category.cName}}>{{category.cName}}</option> 
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="pImage">Product Image</label>
+                    <input type="file" name="pImage" class="form-control-file" id="pImage">
+                  </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
