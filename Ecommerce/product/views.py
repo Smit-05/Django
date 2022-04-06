@@ -14,6 +14,7 @@ def addProduct(request):
         pShipment = request.POST['pShipment']
         product = Products(cId=cat,pImage=pImage,pName=pName,pDesc=pDesc,pPrice=pPrice,pShipment=pShipment)
         product.save()
+        return render(request,'index.html')
     return render(request,'addProduct.html',{'categories':categories})
 
 def addCategory(request):
