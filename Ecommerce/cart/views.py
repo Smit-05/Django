@@ -29,11 +29,12 @@ def addCart(request):
         request.session['cart'] = cart
         print(request.session['cart'])
         # request.session.get('cart').clear()
-    return redirect('/authentication/normal') 
+    return redirect('/product/viewProduct?pid='+product) 
 
 def viewCart(request):
-    ids = list(request.session.get('cart').keys())
-    products = Products.objects.filter(id__in=ids)
+    if 'cart' in request.session:
+        ids = list(request.session.get('cart').keys())
+        products = Products.objects.filter(id__in=ids)
     return render(request,'viewCart.html',{'products':products})
 
 def checkout(request):

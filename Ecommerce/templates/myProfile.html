@@ -1,0 +1,92 @@
+<!-- Loads the base file -->
+{% extends 'base.html'%}
+<!-- Loads the static contents -->
+{% load static %}
+{% static "images" as baseUrl %}
+{% block title %}
+{{user.username}}
+{% endblock %}
+
+{% block content %}
+
+<section class="mb-5">
+    <div class="container py-5">
+   
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">{{user.username}}</h5>
+              <!-- <div class="d-flex justify-content-center mb-2">
+                <a href="updateUser"><button type="button" class="btn btn-outline-primary ms-1">Update profile</button></a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Username</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.username}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.email}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">First name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.firstname}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Middle name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.middlename}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Last name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.lastname}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Contact no.</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.phone}}</p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}

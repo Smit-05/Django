@@ -19,7 +19,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background: #212121!important;">
-        <a class="navbar-brand custom-txt" href="#" >Clover</a>
+        <a class="navbar-brand custom-txt" href="/" >Clover</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
             <ul class="navbar-nav mr-auto">
                 {% if request.session.userid %}
                 <li class="nav-item active">
-                    <a class="nav-link custom-txt" href="/authentication/normal">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link custom-txt" href="/">Home <span class="sr-only">(current)</span></a>
                 </li> 
                 {% else %}
                 <li class="nav-item active">
@@ -39,29 +39,46 @@
                 <!-- <li class="nav-item active">
                     <a class="nav-link custom-txt" href="/">Home <span class="sr-only">(current)</span></a>
                 </li> -->
+                
+                {% comment %} if vendor is logged in {% endcomment %}
+                {% if request.session.is_vendor == True %}
                 <li class="nav-item">
-                    <a class="nav-link custom-txt" href="/cart/viewCart">Cart</a>
+                    <a class="nav-link custom-txt" href="/product/addProduct">Sell Product</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-txt" href="/product/myProduct">My Product</a>
+                </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link custom-txt" href="/cart/viewCart">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-txt" href="/cart/viewOrder">Orders</a>
+                    </li>
+                {% endif %}
+                
             </ul>
 
             {% if request.session.userid == None %}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
-                    <a class="nav-link custom-txt" href="{% if request.path == '/' %}authentication/{% endif %}login">Login</a>
+                    <a class="nav-link custom-txt" href="/authentication/login">Login</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link custom-txt" href="{% if request.path == '/' %}authentication/{% endif %}register">Sign up</a>
+                    <a class="nav-link custom-txt" href="/authentication/register">Sign Up</a>
                 </li>
             </ul>
             {% else %}
 
             <ul class="navbar-nav ml-auto">
+                
                 <li class="nav-item ">
-                    <a class="nav-link custom-txt" href="">Welcome {{request.session.username}}</a>
+                    <a class="nav-link custom-txt" href="/authentication/myprofile">Welcome {{request.session.username}}</a>
                 </li>
-                <li class="nav-item ">
+                <!-- <li class="nav-item ">
                     <a class="nav-link custom-txt" href="/cart/viewOrder">Orders</a>
-                </li>
+                </li> -->
+
                 <li class="nav-item ">
                     <a class="nav-link custom-txt" href="/authentication/logout">Logout</a>
                 </li>
@@ -70,7 +87,7 @@
         </div>
     </nav>
     {% block content %}
-
+    
     {% endblock %}
 
   

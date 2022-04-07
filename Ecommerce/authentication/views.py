@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import smtplib
 from django.forms import PasswordInput
 from django.shortcuts import redirect, render
@@ -28,10 +29,17 @@ def sendMail(To,Subject,message):
 def register(request):
     if request.method=='POST':
         username = request.POST['username']
+        fname = request.POST['firstname']
+        mname = request.POST['middlename']
+        lname = request.POST['lastname']
         password = request.POST['password1']
         email = request.POST['email']
         phone = request.POST['phone']
-        usertype = request.POST['usertype']
+        usertype = request.POST.get('usertype',False)   
+        if(usertype==False):
+            print("Customer")
+        else:
+            print("Vendor")
         if Users.objects.filter(email=email).exists():
             messages.info(request,"Email is already registered")
             return redirect('register')
@@ -39,7 +47,7 @@ def register(request):
             messages.info(request,"Username is already registered")
             return redirect('register')
         else:
-            user = Users(username=username,password=password,email=email,phone=phone,usertype=usertype)
+            user = Users(firstname=fname,middlename=mname,lastname=lname,username=username,password=password,email=email,phone=phone,usertype=usertype)
             user.save()
             messages.success(request,"User created successfully")
             # sendMail(email,"You have been registerd","Jingalala")
@@ -54,15 +62,15 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
         if Users.objects.filter(email=email,password=password).exists():
-            messages.info(request,"Email is already registered")
             user = Users.objects.get(email=email,password=password)
             request.session['userid'] = user.id
             request.session['username'] = user.username
+            request.session['is_vendor'] = False
             if user.usertype==True:
-                return redirect('vendor')
+                request.session['is_vendor'] = True
+                return redirect('/')
             else:
-                
-                return redirect('normal')
+                return redirect('/')
         else:
             messages.error(request,"Invalid Credentials")
             return redirect('login')
@@ -71,9 +79,7 @@ def login(request):
 def normal(request):
     if request.session.is_empty():
         return redirect('login')
-    else:
-        products = Products.objects.all()
-        return render(request,'normal.html',{'products':products})
+    return render(request,'index.html')
 
 def vendor(request):
     if request.session.is_empty():
@@ -83,5 +89,15 @@ def vendor(request):
 def logout(request):
     del request.session['userid']
     del request.session['username']
+    del request.session['is_vendor']
+    request.session.clear()
     return redirect('/')
 
+def myProfile(request):
+    if request.method == 'GET':
+        user = Users.objects.get(id=request.session.get('userid'))
+        if(request.session.get('is_vendor')==True):
+            print(user.username)
+        else:
+            print(user.username)
+    return render(request,'myProfile.html',{'user':user})

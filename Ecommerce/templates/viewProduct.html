@@ -1,0 +1,61 @@
+<!-- Loads the base file -->
+{% extends 'base.html'%}
+<!-- Loads the static contents -->
+{% load static %}
+{% load cart %}
+{% static "images" as baseUrl %}
+
+{% block title %}{{product.pName}}{% endblock title %}
+
+{% block content %}
+
+    <div class="container text-center">
+        {% if product.pImage %}
+        <!-- <figure class="image is-4by3 mb-6"> -->
+            <img src="{{product.pImage.url}}" alt="{{product.pName}}" height="600px">
+        <!-- </figure> -->
+        {% endif %}
+
+    <h1 class="title">{{product.pName}}, ${{product.pPrice}}</h1>
+    
+    <div class="container text-center">
+        <p class="mb-6">
+            <b>Description :- </b><span class="tag is-dark">{{ product.pDesc }}</span>
+        </p>
+        <p class="mb-6">
+            <b>Shipment Details :- </b><span class="tag is-dark">{{ product.pShipment }}</span>
+        </p>
+    </div>
+
+
+    <hr>
+    <div class="card-footer no-gutters p-0">
+
+        {% if product|is_in_cart:request.session.cart %}
+        <!-- <div class="row no-gutters" > -->
+            <form action="/cart/addCart" class="col-2 m-0" method="post">
+                {% csrf_token%}
+                <input type="hidden" name="pID" value="{{product.id}}">
+                <input hidden type="text" name="remove" value="True">
+                <input type="submit" value="-" class="col-2 btn btn-block btn-secondary"> 
+            </form>
+            <div class="text-center col ">{{product|cart_quantity:request.session.cart}} in cart</div>
+            
+            <form action="/cart/addCart" class="col-2 m-0" method="post">
+                {% csrf_token%}
+                <input type="hidden" name="pID" value="{{product.id}}">
+                <input type="submit" value="+" class="col-2 btn btn-block btn-secondary"> 
+            </form>
+
+        <!-- </div> -->
+        {% else %}
+        <form action="/cart/addCart" method="post" class="btn-block">
+            {% csrf_token%}
+            <input type="hidden" name="pID" value="{{product.id}}">
+            <input type="submit" class="float-right btn btn-light border form-control" value="Add To Cart">
+        </form>
+        {% endif %}
+
+    </div>
+    </div>
+{% endblock %}

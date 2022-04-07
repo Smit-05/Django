@@ -13,6 +13,7 @@ Add Product
         <div class="col-md-6">
             <form action="addProduct" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                <input type="hidden" name="uId" value="{{request.session.userid}}">
                 <div class="form-group">
                     <label for="productName">Product Name</label>
                     <input type="text" name="pName" class="form-control" id="productName"
@@ -34,6 +35,7 @@ Add Product
                 <div class="form-group">
                     <label for="categories">Select Category</label>
                     <select name="pCategory" class="form-control" id="categories">
+                    <option value="none" selected disabled hidden>Select Category</option>
                       {% for category in categories %}
                         <option value={{category.cName}}>{{category.cName}}</option> 
                       {% endfor %}

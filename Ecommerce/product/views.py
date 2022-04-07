@@ -1,6 +1,8 @@
+from contextlib import nullcontext
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from .models import Category, Products
+from authentication.models import Users
 # Create your views here.
 def addProduct(request):
     categories = Category.objects.all()
@@ -12,9 +14,10 @@ def addProduct(request):
         pDesc = request.POST['pDesc']
         pPrice = int(request.POST['pPrice'])
         pShipment = request.POST['pShipment']
-        product = Products(cId=cat,pImage=pImage,pName=pName,pDesc=pDesc,pPrice=pPrice,pShipment=pShipment)
+        uId = request.POST['uId']
+        product = Products(uId=Users(id = uId),cId=cat,pImage=pImage,pName=pName,pDesc=pDesc,pPrice=pPrice,pShipment=pShipment)
         product.save()
-        return render(request,'index.html')
+        return redirect('/')
     return render(request,'addProduct.html',{'categories':categories})
 
 def addCategory(request):
@@ -30,3 +33,23 @@ def addCategory(request):
             messages.success(request,"Category added Successfully")
             return redirect('/')
     return render(request,'addCategory.html')
+
+def viewProduct(request):
+    if request.method=='GET':
+        proid = request.GET.get('pid')
+        product = Products.objects.filter(id=proid)
+        if(product):
+            print(len(product))
+            mypro = nullcontext
+            for p in product:
+                mypro = p
+            print(mypro)
+            return render(request,'viewProduct.html',{'product':mypro})
+        else:
+            return redirect('/')
+    return redirect('/')
+
+def myProduct(request):
+    user = request.session.get('userid')
+    products = Products.objects.filter(uId = user)
+    return render(request,'myProducts.html',{'products':products})

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-
+{% if request.session.userid!=null %}
     <div class="container">
         <p class="display-4">Cart</p>
 		<div class="m-3 table-responsive">
@@ -107,4 +107,7 @@
 			});
 		});
 	</script>
+    {% else %}
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPDkg8_iFI1qF8zdUnYiv2nvrh4gpY5KDtzg&usqp=CAU">
+    {% endif %}
 {% endblock %}

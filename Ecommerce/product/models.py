@@ -1,4 +1,5 @@
 from django.db import models
+from authentication.models import Users
 
 # Create your models here.
 class Category(models.Model):
@@ -12,4 +13,5 @@ class Products(models.Model):
     pPrice = models.IntegerField()
     pShipment = models.TextField(max_length=1000)
     cId = models.ForeignKey(Category,null=True,on_delete=models.CASCADE)
+    uId = models.ForeignKey(Users,null=True,on_delete=models.CASCADE)
     
