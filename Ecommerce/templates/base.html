@@ -27,21 +27,26 @@
                 <li class="nav-item active">
                     <a class="nav-link custom-txt" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
+                {% comment %} if vendor is logged in {% endcomment %}
+                {% if request.session.is_vendor == True %}
                 <li class="nav-item">
-                    <a class="nav-link custom-txt" href="/authentication/normal">Link</a>
+                    <a class="nav-link custom-txt" href="/product/addProduct">Sell Product</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link custom-txt dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link custom-txt" href="/product/addProduct">My Product</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-txt" href="/product/addProduct">Sold Product</a>
+                </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link custom-txt" href="/myCarts">Carts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-txt" href="/myOrders">Orders</a>
+                    </li>
+                {% endif %}
+                
             </ul>
 
             {% if request.session.userid == None %}
@@ -57,7 +62,7 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
-                    <a class="nav-link custom-txt" href="">{{request.session.username}}</a>
+                    <a class="nav-link custom-txt" href="/authentication/myprofile">{{request.session.username}}</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link custom-txt" href="/authentication/logout">Logout</a>
@@ -67,7 +72,7 @@
         </div>
     </nav>
     {% block content %}
-
+    
     {% endblock %}
 
   

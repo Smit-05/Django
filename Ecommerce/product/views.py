@@ -1,3 +1,4 @@
+from contextlib import nullcontext
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from .models import Category, Products
@@ -14,7 +15,7 @@ def addProduct(request):
         pShipment = request.POST['pShipment']
         product = Products(cId=cat,pImage=pImage,pName=pName,pDesc=pDesc,pPrice=pPrice,pShipment=pShipment)
         product.save()
-        return render(request,'index.html')
+        return redirect('/')
     return render(request,'addProduct.html',{'categories':categories})
 
 def addCategory(request):
@@ -30,3 +31,15 @@ def addCategory(request):
             messages.success(request,"Category added Successfully")
             return redirect('/')
     return render(request,'addCategory.html')
+
+def viewProduct(request):
+    if request.method=='POST':
+        proid = request.POST.get('pid')
+        product = Products.objects.filter(id=proid)
+        print(len(product))
+        mypro = nullcontext
+        for p in product:
+            mypro = p
+        print(mypro)
+        return render(request,'viewProduct.html',{'product':mypro})
+    return redirect('/')
