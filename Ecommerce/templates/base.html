@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link custom-txt" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link custom-txt" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link custom-txt" href="#">Link</a>
@@ -47,10 +47,10 @@
             {% if request.session.userid == None %}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
-                    <a class="nav-link custom-txt" href="authentication/login">Login</a>
+                    <a class="nav-link custom-txt" href="/authentication/login">Login</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link custom-txt" href="{% if request.path == '/' %}authentication/{% endif %}register">Sign up</a>
+                    <a class="nav-link custom-txt" href="/authentication/register">Sign Up</a>
                 </li>
             </ul>
             {% else %}
@@ -60,7 +60,7 @@
                     <a class="nav-link custom-txt" href="">{{request.session.username}}</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link custom-txt" href="logout">Logout</a>
+                    <a class="nav-link custom-txt" href="/authentication/logout">Logout</a>
                 </li>
             </ul>
             {% endif%}
