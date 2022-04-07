@@ -8,10 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <title>{% block title %}{% endblock %} | E-Shop</title>
+    <link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -28,7 +31,7 @@
                     <a class="nav-link custom-txt" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link custom-txt" href="/authentication/normal">Link</a>
+                    <a class="nav-link custom-txt" href="/cart/viewCart">Cart</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link custom-txt dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -60,7 +63,7 @@
                     <a class="nav-link custom-txt" href="">{{request.session.username}}</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link custom-txt" href="logout">Logout</a>
+                    <a class="nav-link custom-txt" href="/authentication/logout">Logout</a>
                 </li>
             </ul>
             {% endif%}

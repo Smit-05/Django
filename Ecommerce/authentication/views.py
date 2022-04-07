@@ -3,6 +3,7 @@ from django.forms import PasswordInput
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .models import Users
+from product.models import Products
 # Create your views here.
 
 
@@ -47,6 +48,9 @@ def register(request):
 
 def login(request):
     if request.method=='POST':
+        cart = request.session.get('cart')
+        if not cart:
+            request.session['cart']={}
         email = request.POST['email']
         password = request.POST['password']
         if Users.objects.filter(email=email,password=password).exists():
@@ -57,6 +61,7 @@ def login(request):
             if user.usertype==True:
                 return redirect('vendor')
             else:
+                
                 return redirect('normal')
         else:
             messages.error(request,"Invalid Credentials")
@@ -66,7 +71,9 @@ def login(request):
 def normal(request):
     if request.session.is_empty():
         return redirect('login')
-    return render(request,'normal.html')
+    else:
+        products = Products.objects.all()
+        return render(request,'normal.html',{'products':products})
 
 def vendor(request):
     if request.session.is_empty():
