@@ -30,6 +30,7 @@ def register(request):
         password = request.POST['password1']
         email = request.POST['email']
         phone = request.POST['phone']
+        usertype = request.POST['usertype']
         if Users.objects.filter(email=email).exists():
             messages.info(request,"Email is already registered")
             return redirect('register')
@@ -37,7 +38,7 @@ def register(request):
             messages.info(request,"Username is already registered")
             return redirect('register')
         else:
-            user = Users(username=username,password=password,email=email,phone=phone)
+            user = Users(username=username,password=password,email=email,phone=phone,usertype=usertype)
             user.save()
             messages.success(request,"User created successfully")
             # sendMail(email,"You have been registerd","Jingalala")
@@ -53,7 +54,10 @@ def login(request):
             user = Users.objects.get(email=email,password=password)
             request.session['userid'] = user.id
             request.session['username'] = user.username
-            return redirect('normal')
+            if user.usertype==True:
+                return redirect('vendor')
+            else:
+                return redirect('normal')
         else:
             messages.error(request,"Invalid Credentials")
             return redirect('login')
@@ -63,6 +67,11 @@ def normal(request):
     if request.session.is_empty():
         return redirect('login')
     return render(request,'normal.html')
+
+def vendor(request):
+    if request.session.is_empty():
+        return redirect('login')
+    return render(request,'vendor.html')
 
 def logout(request):
     del request.session['userid']
