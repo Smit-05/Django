@@ -50,6 +50,7 @@ Hello
                                 <form action="/cart/addCart" class="col-2 m-0" method="post">
                                     {% csrf_token%}
                                     <input type="hidden" name="pID" value="{{product.id}}">
+                                    <input type="hidden" name="index" value="True">
                                     <input hidden type="text" name="remove" value="True">
                                     <input type="submit" value="-" class="col-2 btn btn-block btn-secondary"> 
                                 </form>
@@ -58,6 +59,7 @@ Hello
                                 <form action="/cart/addCart" class="col-2 m-0" method="post">
                                     {% csrf_token%}
                                     <input type="hidden" name="pID" value="{{product.id}}">
+                                    <input type="hidden" name="index" value="True">
                                     <input type="submit" value="+" class="col-2 btn btn-block btn-secondary"> 
                                 </form>
                     
@@ -66,6 +68,7 @@ Hello
                             <form action="/cart/addCart" method="post" class="btn-block">
                                 {% csrf_token%}
                                 <input type="hidden" name="pID" value="{{product.id}}">
+                                <input type="hidden" name="index" value="True">
                                 <input type="submit" class="float-right btn btn-light border form-control" value="Add To Cart">
                             </form>
                             {% endif %}

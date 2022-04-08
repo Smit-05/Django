@@ -8,6 +8,7 @@ from .models import Order
 
 def addCart(request):
     if request.method=='POST':
+        index = request.POST.get('index')
         product = request.POST['pID']
         remove = request.POST.get('remove')
         cart = request.session.get('cart')
@@ -29,6 +30,8 @@ def addCart(request):
         request.session['cart'] = cart
         print(request.session['cart'])
         # request.session.get('cart').clear()
+        if index==str(True):
+            return redirect("/")        
     return redirect('/product/viewProduct?pid='+product) 
 
 def viewCart(request):
